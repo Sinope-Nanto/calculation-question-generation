@@ -1,7 +1,7 @@
 import re
 from tree import *
 
-def _RPN2tree(notation:list) -> node:
+def _rpn2tree(notation:list) -> node:
     number_stack = []
     for symbol in notation:
         if symbol in operator_list:
@@ -61,7 +61,7 @@ def _notation2list(notation: str) -> list:
     return symbol
 
 
-def _value_of_PN(notation: list) -> float:
+def _value_of_pn(notation: list) -> float:
     operator_number = []
     while len(notation):
         symbol = notation.pop()
@@ -85,7 +85,7 @@ def _value_of_PN(notation: list) -> float:
             operator_number.append(symbol)
     return operator_number[0]
 
-def _value_of_RPN(notation: list) -> float:
+def _value_of_rpn(notation: list) -> float:
     operator_number = []
     while len(notation):
         symbol = notation.pop(0)
@@ -108,7 +108,7 @@ def _value_of_RPN(notation: list) -> float:
             operator_number.append(symbol)
     return operator_number[0]
 
-def _infix2RPN(notation: list) -> list:
+def _infix2rpn(notation: list) -> list:
     number_stack = []
     operator_stack = []
     for symbol in notation:
@@ -132,30 +132,30 @@ def _infix2RPN(notation: list) -> list:
     return number_stack
 
 def get_value_of_infix(experssion:str) -> float:
-    return _value_of_RPN(_infix2RPN(_notation2list(_negative_number_process(experssion))))
+    return _value_of_rpn(_infix2rpn(_notation2list(_negative_number_process(experssion))))
 
-def get_value_of_PN(experssion:str) -> float:
-    return _value_of_PN(_notation2list(experssion))
+def get_value_of_pn(experssion:str) -> float:
+    return _value_of_pn(_notation2list(experssion))
 
-def get_value_of_RPN(experssion:str) -> float:
-    return _value_of_PN(_notation2list(experssion))
+def get_value_of_rpn(experssion:str) -> float:
+    return _value_of_pn(_notation2list(experssion))
 
-def infix2RPN(experssion:str) -> str:
-    symbol_list = _infix2RPN(_notation2list(_negative_number_process(experssion)))
+def infix2rpn(experssion:str) -> str:
+    symbol_list = _infix2rpn(_notation2list(_negative_number_process(experssion)))
     rpn = ''
     for symbol in symbol_list:
         rpn += (str(symbol) + ' ')
     rpn = rpn.replace('N', '-')
     return rpn
 
-def RPN2infix(experssion:str) -> str:
+def rpn2infix(experssion:str) -> str:
     symbol_list =_notation2list(experssion)
-    tree = _RPN2tree(symbol_list)
+    tree = _rpn2tree(symbol_list)
     infix = str(tree)
     infix = infix.replace('0-', '-')
     return infix
 
 def remove_parentheses(experssion:str) -> str:
-    return RPN2infix(infix2RPN(experssion))
+    return rpn2infix(infix2rpn(experssion))
 
 # print(remove_parentheses('(-3*-4)+((6+5)*2)'))
