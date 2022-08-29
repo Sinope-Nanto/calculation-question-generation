@@ -138,7 +138,7 @@ def get_value_of_pn(experssion:str) -> float:
     return _value_of_pn(_notation2list(experssion))
 
 def get_value_of_rpn(experssion:str) -> float:
-    return _value_of_pn(_notation2list(experssion))
+    return _value_of_rpn(_notation2list(experssion))
 
 def infix2rpn(experssion:str) -> str:
     symbol_list = _infix2rpn(_notation2list(_negative_number_process(experssion)))
